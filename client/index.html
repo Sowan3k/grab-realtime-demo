@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grab Real-Time Demo — CSE443</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header class="header">
+    <span class="header-title">Grab Real-Time Ops Dashboard — CSE443 Assignment 2</span>
+    <div class="header-right">
+      <span class="speed-label" id="speed-label">Speed: 1×</span>
+      <span class="demo-badge">DEMO MODE</span>
+      <div class="ws-indicator">
+        <span class="ws-dot" id="header-ws-dot"></span>
+        <span class="ws-label" id="header-ws-label">CONNECTING</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Three-column grid ───────────────────────────────────────────────── -->
+  <main class="grid">
+
+    <!-- ── LEFT: Driver Dashboard ───────────────────────────────────────── -->
+    <div class="card" id="driver-panel">
+      <div class="card-title">Driver Dashboard</div>
+
+      <!-- Driver ID + online status -->
+      <div class="driver-id-row">
+        <span class="driver-id" id="driver-id">DRV-001</span>
+        <span class="pill pill-online">Online</span>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Cumulative trip time -->
+      <div>
+        <div class="cum-time-label">Cumulative Trip Time</div>
+        <div class="cum-time" id="cum-time">00:00</div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Live sensor feed -->
+      <div>
+        <div class="sensor-feed-label">Live Sensor Feed — 100 ms interval</div>
+        <div class="sensor-grid">
+          <div>
+            <div class="sensor-group-label">Accelerometer (g)</div>
+            <div class="sensor-axes">
+              <div class="sensor-axis">
+                <span class="axis-label">X</span>
+                <span class="axis-value" id="accel-x">—</span>
+              </div>
+              <div class="sensor-axis">
+                <span class="axis-label">Y</span>
+                <span class="axis-value" id="accel-y">—</span>
+              </div>
+              <div class="sensor-axis">
+                <span class="axis-label">Z</span>
+                <span class="axis-value" id="accel-z">—</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="sensor-group-label">Gyroscope (°/s)</div>
+            <div class="sensor-axes">
+              <div class="sensor-axis">
+                <span class="axis-label">X</span>
+                <span class="axis-value" id="gyro-x">—</span>
+              </div>
+              <div class="sensor-axis">
+                <span class="axis-label">Y</span>
+                <span class="axis-value" id="gyro-y">—</span>
+              </div>
+              <div class="sensor-axis">
+                <span class="axis-label">Z</span>
+                <span class="axis-value" id="gyro-z">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Fatigue risk score bar -->
+      <div class="risk-section">
+        <div class="risk-header">
+          <span class="risk-label">Fatigue Risk Score</span>
+          <span class="risk-value" id="risk-value">0.0000</span>
+        </div>
+        <div class="risk-bar-track">
+          <div class="risk-fill risk-low" id="risk-fill"></div>
+          <div class="risk-threshold"></div>
+          <div class="risk-threshold-label">threshold 0.8</div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Alert banner — min-height reserved so alerts never shift layout -->
+      <div class="alert-banner hidden" id="alert-banner">
+        <!-- Dormant state -->
+        <div class="alert-placeholder" id="alert-placeholder">No alert — system normal</div>
+        <!-- Active state: icon left, text stacked right -->
+        <div class="alert-content" id="alert-content" style="display:none;">
+          <div class="alert-icon">!</div>
+          <div class="alert-body">
+            <div class="alert-title" id="alert-text"></div>
+            <div class="alert-latency" id="alert-latency"></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Safety event log -->
+      <div>
+        <div class="card-title" style="margin-bottom:0.45rem;">Safety Event Log</div>
+        <div class="event-log" id="event-log">
+          <div class="log-entry init">Waiting for events…</div>
+        </div>
+      </div>
+    </div><!-- /driver-panel -->
+
+    <!-- ── CENTER: Code Panel — Phase 5 ─────────────────────────────────── -->
+    <div class="card" id="code-panel">
+      <!-- Populated by code-panel.js -->
+    </div>
+
+    <!-- ── RIGHT: Passenger App ──────────────────────────────────────────── -->
+    <div class="card" id="passenger-panel">
+      <div class="card-title">Passenger App</div>
+
+      <!-- Zone label -->
+      <div class="zone-label">Penang Central — Zone PEN-CENTRAL</div>
+
+      <hr class="section-divider" />
+
+      <!-- Surge multiplier — large display, animates on every surge_update -->
+      <div>
+        <div class="metric-label">Surge Multiplier</div>
+        <div class="multiplier-display" id="multiplier">1.00×</div>
+      </div>
+
+      <!-- Fare preview -->
+      <div>
+        <div class="metric-label">Fare Preview — 5 km trip</div>
+        <div class="fare-preview" id="fare-preview">RM 7.50</div>
+        <div class="fare-base">Base RM 1.50/km × 5 km × multiplier</div>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- Countdown to next pricing update — ticks every 100 ms -->
+      <div class="countdown" id="countdown">next update in —</div>
+
+      <hr class="section-divider" />
+
+      <!-- Sparkline — inline SVG, no library -->
+      <div>
+        <div class="metric-label">Multiplier History — last 20 updates</div>
+        <svg id="sparkline" class="sparkline" preserveAspectRatio="none"></svg>
+      </div>
+
+      <hr class="section-divider" />
+
+      <!-- WebSocket status + push latency badge -->
+      <div class="pax-status-row">
+        <div class="ws-indicator">
+          <span class="ws-dot-passenger" id="pax-ws-dot"></span>
+          <span class="ws-label" id="pax-ws-label">CONNECTING</span>
+        </div>
+        <span class="latency-badge" id="pax-latency">price latency — ms</span>
+      </div>
+    </div>
+
+  </main><!-- /grid -->
+
+  <!-- ── Demo controls bar — Phase 6 ────────────────────────────────────── -->
+  <!-- Revealed and populated by demo-controls.js -->
+  <div class="controls-bar" id="controls-bar" style="display:none;"></div>
+
+  <!-- Scripts — driver.js opens the shared WebSocket; other modules attach via window.wsSubscribe -->
+  <script src="driver.js"></script>
+  <script src="passenger.js"></script>
+  <script src="code-panel.js"></script>
+  <script src="demo-controls.js"></script>
+
+</body>
+</html>

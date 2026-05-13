@@ -1,0 +1,58 @@
+/* Design system tokens — all phases must import this file first.
+   All other CSS references var(--token) only — no hardcoded colors or off-grid values. */
+:root {
+  /* ── Backgrounds ─────────────────────────────────────────────────────────── */
+  --bg:       #0a0d14;
+  --surface:  #131822;
+  --elevated: #1c2230;
+
+  /* ── Borders ─────────────────────────────────────────────────────────────── */
+  --border:        #1f2735;
+  --border-strong: #2b3447;
+
+  /* ── Text ────────────────────────────────────────────────────────────────── */
+  --text:       #e8ecf3;
+  --text-muted: #8b94a8;
+  --text-faint: #5a637a;
+
+  /* ── Semantic accents — use sparingly, one per visual region ─────────────── */
+  --success: #14b88a;   /* healthy, connected, online */
+  --warning: #f5a524;   /* approaching threshold */
+  --danger:  #f0405f;   /* alert firing, disconnected */
+  --info:    #3b82f6;   /* neutral status */
+  --brand:   #2dd4bf;   /* logo + at most one CTA */
+
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+  --font-sans: 'Geist', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --text-xs:   11px;   /* small caps labels, badges */
+  --text-sm:   13px;   /* secondary text, log entries */
+  --text-base: 14px;   /* body UI */
+  --text-md:   16px;   /* card headers */
+  --text-lg:   20px;   /* section headings */
+  --text-xl:   28px;   /* medium display numbers */
+  --text-2xl:  40px;   /* large display numbers */
+  --text-3xl:  64px;   /* THE multiplier and THE cumulative time */
+
+  /* ── Spacing — 8-point grid. No values outside this set. ─────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* ── Border radius ───────────────────────────────────────────────────────── */
+  --radius-sm: 4px;   /* buttons, inputs, badges */
+  --radius-md: 6px;   /* small cards, alert banner */
+  --radius-lg: 8px;   /* main cards */
+
+  /* ── Component dimensions (spec-mandated fixed sizes) ────────────────────── */
+  --header-height: 56px;
+  --footer-height: 80px;
+  --dot-sm: 6px;   /* status pill dot */
+  --dot-md: 8px;   /* connection indicator / ws dot */
+}
