@@ -73,6 +73,13 @@ wss.on("connection", (ws) => {
         console.log("[demo] forcedNextMultiplier = 2.8");
         break;
 
+      case "force_zero_drivers":
+        // Pin availableDrivers to 0 for the next pricing cycle so the real
+        // calculateSurgeMultiplier runs its zero_drivers terminal path on camera.
+        state.forceZeroDrivers = true;
+        console.log("[demo] forceZeroDrivers = true — next cycle pins drivers to 0");
+        break;
+
       case "set_speed":
         state.speedMultiplier = value;
         console.log(`[demo] speedMultiplier = ${value}x — restarting eval and pricing loops`);
@@ -85,6 +92,7 @@ wss.on("connection", (ws) => {
         state.lastSensorRisk       = 0;
         state.forcedNextRisk       = null;
         state.forcedNextMultiplier = null;
+        state.forceZeroDrivers     = false;
         state.currentMultiplier    = 1.0;
         state.multiplierHistory    = [];
         state.openRequests         = 12;

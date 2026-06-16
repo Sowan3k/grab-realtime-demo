@@ -23,7 +23,15 @@ function startPricingLoop(broadcast) {
     let multiplier;
     let surgeType;
 
-    if (state.forcedNextMultiplier !== null) {
+    if (state.forceZeroDrivers) {
+      // Force zero drivers demo control: pin availableDrivers to 0 for this one
+      // cycle and run the REAL calculateSurgeMultiplier so the zero_drivers
+      // terminal path genuinely executes (no forced-multiplier shortcut).
+      state.forceZeroDrivers = false;
+      state.availableDrivers = 0;
+      multiplier = calculateSurgeMultiplier(state.openRequests, state.availableDrivers);
+      surgeType  = state.availableDrivers === 0 ? "zero_drivers" : "computed";
+    } else if (state.forcedNextMultiplier !== null) {
       // Spike demand demo control: use forced value directly, skip normal computation.
       multiplier = state.forcedNextMultiplier;
       state.forcedNextMultiplier = null;

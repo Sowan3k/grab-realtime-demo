@@ -5,6 +5,7 @@ const state = {
   lastSensorRisk: 0,
   forcedNextRisk: null,        // set by demo "spike risk" button
   forcedNextMultiplier: null,  // set by demo "spike demand" button
+  forceZeroDrivers: false,     // set by demo "force zero drivers" button — pins drivers to 0 for one cycle
   zoneId: "PEN-CENTRAL",
   currentMultiplier: 1.0,
   multiplierHistory: [],       // last 20 multipliers

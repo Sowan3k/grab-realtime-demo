@@ -53,6 +53,11 @@
       Spike Demand
     </button>
 
+    <button class="btn" id="btn-force-zero-drivers"
+      title="Pins availableDrivers to 0 for the next pricing cycle so calculateSurgeMultiplier runs its zero_drivers path (3.5× hard cap).">
+      Force Zero Drivers
+    </button>
+
     <span class="controls-label" style="margin-left:var(--space-3);">Speed</span>
     <button class="btn btn-speed active" data-speed="1"
       title="Normal speed — 5 s fatigue eval, 30 s price update">1×</button>
@@ -78,6 +83,10 @@
 
   document.getElementById('btn-spike-demand').addEventListener('click', () => {
     _send('spike_demand');
+  });
+
+  document.getElementById('btn-force-zero-drivers').addEventListener('click', () => {
+    _send('force_zero_drivers');
   });
 
   document.querySelectorAll('.btn-speed').forEach((btn) => {
