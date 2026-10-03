@@ -1,6 +1,7 @@
 // ── Shared WebSocket ───────────────────────────────────────────────────────
 // One connection for the entire page; other modules attach via window.wsSubscribe.
-const socket = new WebSocket(`ws://${location.host}`);
+const wsScheme = location.protocol === "https:" ? "wss" : "ws";
+const socket = new WebSocket(`${wsScheme}://${location.host}`);
 
 const _handlers = {};
 
