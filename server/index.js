@@ -124,7 +124,7 @@ startSimulator(broadcast);
 startFatigueLoop(broadcast);
 startPricingLoop(broadcast);
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`[server] listening on http://localhost:${PORT}`);
   console.log(`[server] WebSocket endpoint: ws://localhost:${PORT}`);
